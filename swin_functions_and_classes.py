@@ -626,7 +626,7 @@ class SwinTransformer(nn.Module):
         self.norm = norm_layer(self.num_features)
         self.avgpool = nn.AdaptiveAvgPool1d(1)
         
-        # Classification Head
+        # Classification Head (change this to CSRA)
         self.head = nn.Linear(self.num_features, num_classes) if num_classes > 0 else nn.Identity()
         
         self.apply(self._init_weights)
@@ -656,8 +656,10 @@ class SwinTransformer(nn.Module):
         x = torch.flatten(x, 1)
         return x
     
-    def forward(self, x):
+    def forward(self, x): #change this to accept more than one image
         x = self.forward_features(x)
+	#x2 = self.forward_features(x2)
+	#concatenate = torch.conc
         x = self.head(x)
         return x
     
